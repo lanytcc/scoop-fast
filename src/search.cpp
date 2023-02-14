@@ -4,10 +4,19 @@
 #include <windows.h>
 #include "search.hpp"
 
+std::string lower(std::string a){
+    std::string res = a;
+    for(auto &i:res){
+        if(i >= 'A' && i <= 'Z'){
+            i = 'a' + i - 'A';
+        }
+    }
+    return res;
+}
+
 std::vector<std::string> find_json_files(std::string dir, std::string keyword) {
 
     std::vector<std::string> files;
-    std::ifstream fin;
     std::string filename;
 
     for (auto &p : std::filesystem::directory_iterator(dir)) {
@@ -17,8 +26,8 @@ std::vector<std::string> find_json_files(std::string dir, std::string keyword) {
         if(filename.length() > 5 && filename.substr(filename.length() - 5) == ".json"){
             filename = filename.substr(0, filename.length() - 5);
 
-            if (filename.find(keyword) != std::string::npos) {
-                files.emplace_back( "   -> " + filename + show_package(p.path().string()));
+            if (lower(filename).find(lower(keyword)) != std::string::npos) {
+                files.emplace_back( "   -> " + filename + show_package(p.path()));
             }
         }
     }
@@ -30,7 +39,6 @@ std::vector<std::string> find_json_files(std::string dir, std::string keyword) {
 std::vector<std::string> find_sub_dirs(std::string dir) {
 
     std::vector<std::string> dirs;
-    std::ifstream fin;
     std::string filename;
 
     for (auto &p : std::filesystem::directory_iterator(dir)) {

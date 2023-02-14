@@ -1,22 +1,19 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
-#include <stdio.h>
+#include <filesystem>
 #include "json.hpp"
 using json = nlohmann::json;
 
 
-json open(std::string &file){
+json open(const std::filesystem::path &file){
     std::ifstream f(file);
     return json::parse(f);
 }
 
-std::string show_package(std::string dir){
-    std::string usage;
+std::string show_package(const std::filesystem::path &dir){
+    std::ostringstream usage;
     json file;
     file = open(dir);
-    usage += " - ";
-    usage += file["version"];
-    usage += ": ";
-    usage += file["description"];
-    return usage;
+    usage << " - " << file["version"] << ": " << file["description"];
+    return usage.str();
 }
