@@ -67,7 +67,7 @@ std::vector<std::string> find_all_json_files(std::string dir, std::string keywor
 }
 
 bool search(std::string &keyword, std::vector<std::string> &result){
-    std::vector<std::string> dirs = find_sub_dirs("..\\..\\..\\buckets");
+    std::vector<std::string> dirs = find_sub_dirs("~\\scoop\\buckets");
     std::vector<std::string> a;
     for(auto &p : dirs){
 #ifdef DEBUG
