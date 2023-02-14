@@ -70,7 +70,10 @@ bool search(std::string &keyword, std::vector<std::string> &result){
     std::vector<std::string> dirs = find_sub_dirs("..\\..\\..\\buckets");
     std::vector<std::string> a;
     for(auto &p : dirs){
-        a = find_all_json_files(p + "\\bucket", keyword);
+#ifdef DEBUG
+        printf(p.data());
+#endif
+        a = find_json_files(p + "\\bucket", keyword);
         result.insert(result.end(), a.begin(), a.end());
     }
     return true;
