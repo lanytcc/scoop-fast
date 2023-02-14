@@ -1,6 +1,7 @@
 #include <fmt/core.h>
 #include <fstream>
 #include <filesystem>
+#include <windows.h>
 #include "search.hpp"
 
 std::vector<std::string> find_json_files(std::string dir, std::string keyword) {
@@ -43,32 +44,13 @@ std::vector<std::string> find_sub_dirs(std::string dir) {
     return dirs;
 }
 
-
-std::vector<std::string> find_all_json_files(std::string dir, std::string keyword) {
-
-    std::vector<std::string> files;
-    std::vector<std::string> sub_dirs;
-    std::vector<std::string> sub_dirss;
-    std::vector<std::string> a;
-
-    sub_dirs = find_sub_dirs(dir);
-
-    for(auto &d : sub_dirs){
-        a = find_sub_dirs(d);
-        sub_dirss.insert(sub_dirss.end(), a.begin(), a.end());
-    }
-
-    for (auto &sub_dir : sub_dirss) {
-        a = find_json_files(sub_dir, keyword);
-        files.insert(files.end(), a.begin(), a.end());
-    }
-
-    return files;
-}
-
 bool search(std::string &keyword, std::vector<std::string> &result){
-    std::vector<std::string> dirs = find_sub_dirs("~\\scoop\\buckets");
+    char buffer[MAX_PATH];
+    ExpandEnvironmentStrings("%USERPROFILE%", buffer, MAX_PATH);
+
+    std::vector<std::string> dirs = find_sub_dirs(buffer + std::string("\\scoop\\buckets"));
     std::vector<std::string> a;
+    
     for(auto &p : dirs){
 #ifdef DEBUG
         printf(p.data());
