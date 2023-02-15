@@ -4,6 +4,6 @@
 #ifndef _SEARCH_HPP_SCOOP_
 #define _SEARCH_HPP_SCOOP_ 1
 
-bool search(std::string &keyword, std::vector<std::string> &result);
+bool search(const std::string &keyword, std::vector<std::string> &result);
 
 #endif

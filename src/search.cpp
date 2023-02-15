@@ -4,7 +4,11 @@
 #include <windows.h>
 #include "search.hpp"
 
-std::string lower(std::string a){
+std::string c1 {"   \033[35m->\033[35m "};
+std::string c2_s {"\033[32m"};
+std::string c2_e {"\033[0m"};
+
+std::string lower(const std::string a){
     std::string res = a;
     for(auto &i:res){
         if(i >= 'A' && i <= 'Z'){
@@ -14,7 +18,7 @@ std::string lower(std::string a){
     return res;
 }
 
-std::vector<std::string> find_json_files(std::string dir, std::string keyword) {
+std::vector<std::string> find_json_files(const std::string &dir, const std::string &keyword) {
 
     std::vector<std::string> files;
     std::string filename;
@@ -27,7 +31,7 @@ std::vector<std::string> find_json_files(std::string dir, std::string keyword) {
             filename = filename.substr(0, filename.length() - 5);
 
             if (lower(filename).find(lower(keyword)) != std::string::npos) {
-                files.emplace_back( "   -> " + filename + show_package(p.path()));
+                files.emplace_back( c1 + c2_s + filename + c2_e + show_package(p.path()));
             }
         }
     }
@@ -36,7 +40,7 @@ std::vector<std::string> find_json_files(std::string dir, std::string keyword) {
 }
 
 
-std::vector<std::string> find_sub_dirs(std::string dir) {
+std::vector<std::string> find_sub_dirs(const std::string &dir) {
 
     std::vector<std::string> dirs;
     std::string filename;
@@ -52,7 +56,7 @@ std::vector<std::string> find_sub_dirs(std::string dir) {
     return dirs;
 }
 
-bool search(std::string &keyword, std::vector<std::string> &result){
+bool search(const std::string &keyword, std::vector<std::string> &result){
     char buffer[MAX_PATH];
     ExpandEnvironmentStrings("%USERPROFILE%", buffer, MAX_PATH);
 
