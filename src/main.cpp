@@ -15,7 +15,7 @@ string order(int argc, char** argv){
 }
 
 int main(int argc, char** argv){
-    if(argc <= 1)return 0;
+    if(argc <= 1)return 1;
 
 #ifdef DEBUG
     fmt::print(" {0} argc\n", argc);
@@ -29,9 +29,15 @@ int main(int argc, char** argv){
         }
         else {
             system(order(argc, argv).data());
+            return 0;
         }
     }
 
+    if(argc < 3){
+        fmt::print("error: no match arg[2]");
+        return 1;
+    }
+    
     vector<string> res;
     string keyword = string(argv[2]);
 
