@@ -23,14 +23,12 @@ int main(int argc, char** argv){
 
     bool _search = false;
     int cnt = 0;
-    for(int i = 0; i < argc; ++i){
-        if(string(argv[1]) == "search"){
-            _search = true;
-        }
-        else {
-            system(order(argc, argv).data());
-            return 0;
-        }
+    if(string(argv[1]) == "search"){
+        _search = true;
+    }
+    else {
+        system(order(argc, argv).data());
+        return 0;
     }
 
     if(argc < 3){
