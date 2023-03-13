@@ -4,7 +4,7 @@ Quickly find existing packages in scoop.
 
 ## install 
 run :
-- `scoop bucket add scoop-fast-pkg https://github.com/Aizaixyq/scoop-fast-pkg`
+- `scoop bucket add scoop-fast-pkg https://github.com/maye174/scoop-fast-pkg`
 - `scoop install scoop-fast`
 
 ## commands
